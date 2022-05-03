@@ -1,5 +1,7 @@
 # Biodiversity App
 
+Link to the app: [Data for Good](https://dillon-reichman777.shinyapps.io/Bio_Diversity/).
+
 This is the README file for an app created to visualise data based on that from the [Global Biodiversity Information Facility](https://www.gbif.org/occurrence/search?dataset_key=8a863029-f435-446a-821e-275f4f641165), with a particular focus on observations from Poland. 
 
 ## Overview of App Folder Structure:
