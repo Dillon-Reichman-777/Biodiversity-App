@@ -18,6 +18,11 @@ jobs:
           path: ${{ env.R_LIBS_USER }}
           key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
           restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
+
+      - name: install remotes package # Set up R env to install packages
+        run: |
+          install.packages('remotes')
+        shell: Rscript {0}
         
       - name: Install system dependencies
         if: runner.os == 'Linux'
