@@ -36,6 +36,11 @@ jobs:
       - name: Install dependencies # Install the dependencies eg. Dplyr, tidyverse etc
         run: renv::restore()
         shell: Rscript {0}
+        
+      - name: Run tests
+        shell: Rscript {0}
+        run: |
+          source('app.R')
   
 
    
