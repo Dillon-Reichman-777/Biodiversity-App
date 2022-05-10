@@ -1,10 +1,11 @@
-name: Update-data
 on:
-  schedule:
-    - cron: "13 0 */2 * *" # Every two days at 12:13 AM
+  push:
+  pull_request:
+
+name: run-tests
 
 jobs:
-  generate-data:
+  run-tests:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2 # Checkout branch into the runner
@@ -28,13 +29,5 @@ jobs:
         run: renv::restore()
         shell: Rscript {0}
   
-      - name: Generate data # Run the script
-        run: source("R/data_prep.R")
-        shell: Rscript {0}
-      
-      - name: Commit files # Commit changes
-        run: |
-          git config --local user.email "actions@github.com"
-          git config --local user.name "GitHub Actions"
-          git add .
-          git diff-index --quiet HEAD || (git commit -m "update data" && git push)
+
+   
