@@ -23,7 +23,6 @@ jobs:
         run: |
           install.packages('remotes')
           install.packages('renv')
-          install.packages('devtools')
           devtools::install_github("rstudio/renv")
         shell: Rscript {0}
         
