@@ -32,15 +32,21 @@ jobs:
           path: ${{ env.R_LIBS_USER }}
           key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
           restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
-            
       - name: Install dependencies # Install the dependencies eg. Dplyr, tidyverse etc
+      
         run: renv::restore()
         shell: Rscript {0}
         
-      - name: Run tests
+      - name: source app.R
         shell: Rscript {0}
         run: |
           source('app.R')
+          
+          
+      - name: source test scripts
+        shell: Rscript {0}
+        run: |
+          source('unit_tests/test_cleaned_data.R')
   
 
    
