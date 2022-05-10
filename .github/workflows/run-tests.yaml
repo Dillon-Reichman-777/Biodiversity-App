@@ -11,20 +11,26 @@ jobs:
         with:
           r-version: 'release'
           
-      - name: Setup renv # Set up R env to install packages
-        run: |
-          install.packages('remotes')
-          Rscript -e "remotes::install_github('r-hub/sysreqs')"
-        shell: Rscript {0}
-        
-      - uses: actions/cache@v2 # Cache packages so won't be compiled everytime job is run
+      - name: Cache R packages
+        if: runner.os != 'Windows'
+        uses: actions/cache@v1
         with:
-          path: ~/.local/share/renv
-          key: ${{ runner.os }}-renv-${{ hashFiles('**/renv.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-renv-
-      - name: Install dependencies # Install the dependencies eg. Dplyr, tidyverse etc
-        run: renv::restore()
+          path: ${{ env.R_LIBS_USER }}
+          key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
+          restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
+        
+      - name: Install system dependencies
+        if: runner.os == 'Linux'
+        env:
+          RHUB_PLATFORM: linux-x86_64-ubuntu-gcc
+        run: |
+          Rscript -e "remotes::install_github('r-hub/sysreqs')"
+          sysreqs=$(Rscript -e "cat(sysreqs::sysreq_commands('DESCRIPTION'))")
+          sudo -s eval "$sysreqs"
+
+      - name: Install dependencies
+        run: |
+          remotes::install_deps(dependencies = TRUE)
         shell: Rscript {0}
 
       - name: Source app.R # Run the script
@@ -35,4 +41,3 @@ jobs:
       - name: Generate data # Run the script
         run: source("unit_tests/test_cleaned_data.R")
         shell: Rscript {0}
-
