@@ -41,8 +41,11 @@ jobs:
         shell: Rscript {0}
         run: |
           source('app.R')
-          
-          
+      - name: source packages
+        shell: Rscript {0}
+        run: |
+          source('packages.R')  
+        
       - name: source test scripts
         shell: Rscript {0}
         run: |
