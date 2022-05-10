@@ -22,7 +22,9 @@ jobs:
         
       - name: Install cURL Headers
         run: sudo apt-get install libcurl4-openssl-dev
-             sudo apt install libgdal-dev
+
+      - name: Install Gdal
+        run: sudo apt install libgdal-dev             
         
       - name: Cache R packages
         uses: actions/cache@v1
