@@ -1,7 +1,7 @@
 library(shiny)
 library(shinydashboard)
 library(dplyr)
-library(leaflet)
+#library(leaflet)
 library(readxl)
 library(leaflet.extras)
 library(leaflegend)
