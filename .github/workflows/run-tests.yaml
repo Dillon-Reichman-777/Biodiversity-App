@@ -22,6 +22,7 @@ jobs:
       - name: Setup renv # Set up R env to install packages
         run: |
           install.packages('remotes')
+          install.packages('renv')
         shell: Rscript {0}
         
       - uses: actions/cache@v2 # Cache packages so won't be compiled everytime job is run
