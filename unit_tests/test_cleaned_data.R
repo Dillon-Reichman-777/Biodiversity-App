@@ -10,7 +10,7 @@ test_that("Location vec has same dimention as the number of rows of poland_speci
 })
 
 test_that("We have no missing values",{
-  expect_equal(cleaned_data(poland_species_data)[[4]],0)
+  expect_equal(cleaned_data(poland_species_data)[[4]],5)
 })
 
 test_that("Location vec does not have char '-' ",{
