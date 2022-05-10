@@ -37,26 +37,13 @@ jobs:
         run: renv::restore()
         shell: Rscript {0}
         
-      - name: source app.R
-        shell: Rscript {0}
-        run: |
-          source('app.R')
-      - name: source packages
-        shell: Rscript {0}
-        run: |
-          source('packages.R')  
-    
-  
       - name: source test scripts
         shell: Rscript {0}
         run: |
           source('unit_tests/test_cleaned_data.R')
           
-      - name: Upload test results
-        if: failure()||success()
-        uses: actions/upload-artifact@main
+      - name: Publish Unit Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v1
+        if: always()
         with:
-          name: tests
-          path: unit_tests
-
-   
+          files: "test-results/**/*.xml"
