@@ -19,23 +19,24 @@ jobs:
           key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
           restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
 
-      - name: install remotes package # Set up R env to install packages
+      - name: install packages required for app # Set up R env to install packages
         run: |
           install.packages('remotes')
-        shell: Rscript {0}
-        
-      - name: Install system dependencies
-        if: runner.os == 'Linux'
-        env:
-          RHUB_PLATFORM: linux-x86_64-ubuntu-gcc
-        run: |
-          Rscript -e "remotes::install_github('r-hub/sysreqs')"
-          sysreqs=$(Rscript -e "cat(sysreqs::sysreq_commands('DESCRIPTION'))")
-          sudo -s eval "$sysreqs"
+          install.packages('shiny')
+          install.packages('shinydashboard')
+          install.packages('dplyr')
+          install.packages('leaflet')
+          install.packages('readxl')
+          install.packages('leaflet.extras')
+          install.packages('leaflegend')
+          install.packages('timevis')
+          install.packages('reshape2')
+          install.packages('DT')
+          install.packages('ggplot2')
+          install.packages('shinyjs')
+          install.packages('testthat')
+          install.packages('rlang')
 
-      - name: Install dependencies
-        run: |
-          remotes::install_deps(dependencies = TRUE)
         shell: Rscript {0}
 
       - name: Source app.R # Run the script
