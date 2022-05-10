@@ -1,6 +1,7 @@
 
 source("data_processing_functions.R")
-
+source("packages.R")
+library(testthat)
 
 
 test_that("Location vec has same dimention as the number of rows of poland_species_subset",{
