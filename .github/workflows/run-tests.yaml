@@ -23,6 +23,8 @@ jobs:
         run: |
           install.packages('remotes')
           install.packages('renv')
+          install.packages('devtools')
+          devtools::install_github("rstudio/renv")
         shell: Rscript {0}
         
       - uses: actions/cache@v2 # Cache packages so won't be compiled everytime job is run
