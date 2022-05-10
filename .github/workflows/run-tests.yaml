@@ -44,12 +44,20 @@ jobs:
         run: renv::restore()
         shell: Rscript {0}
         
-      - name: Download Artifacts
-        uses: actions/download-artifact@v2
+      - name: Run tests
+        shell: Rscript {0}
+        run: |
+          source('unit_tests/test_cleaned_data.R')
+        
+      - uses: actions/upload-artifact@v2
+        if: success() || failure()
         with:
-          path: unit_tests
+          name: test_results
+          path: jest-junit.xml
 
-      - name: Publish Unit Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v1
+      - uses: dorny/test-reporter@v1
         with:
-          files: "unit_tests/**/*.xml"
+          artifact: test-results            # artifact name
+          name: JEST Tests                  # Name of the check run which will be created
+          path: '*.xml'                     # Path to test results (inside artifact .zip)
+          reporter: jest-junit              # Format of test results
