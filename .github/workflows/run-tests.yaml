@@ -14,7 +14,7 @@ jobs:
       - name: Setup renv # Set up R env to install packages
         run: |
           install.packages('remotes')
-          remotes::install_github("r-hub/sysreqs")
+          Rscript -e "remotes::install_github('r-hub/sysreqs')"
         shell: Rscript {0}
         
       - uses: actions/cache@v2 # Cache packages so won't be compiled everytime job is run
@@ -35,3 +35,4 @@ jobs:
       - name: Generate data # Run the script
         run: source("unit_tests/test_cleaned_data.R")
         shell: Rscript {0}
+
