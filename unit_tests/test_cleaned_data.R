@@ -1,6 +1,6 @@
 
 source("data_processing_functions.R")
-source("packages.R")
+#source("packages.R")
 library(testthat)
 poland_species_data <- read_excel("poland_data_image_url.xlsx",guess_max = 50000,sheet = "Sheet 1")
 
