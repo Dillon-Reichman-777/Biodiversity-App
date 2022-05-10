@@ -46,18 +46,19 @@ jobs:
         run: |
           source('packages.R')  
     
+  
       - name: source test scripts
         shell: Rscript {0}
         run: |
           source('unit_tests/test_cleaned_data.R')
           
       - name: Test Report
-        uses: Dillon-Reichman-777/Biodiversity-App/test-reporter@v1
+        uses: dorny/test-reporter@v1
         if: success() || failure()    # run this step even if previous step failed
         with:
           name: JEST Tests            # Name of the check run which will be created
-          path: reports/jest-*.xml    # Path to test results
-          reporter: jest-junit        # Format of test results
+          path: "**/test-results.trx"    # Path to test results
+          reporter: dotnet-trx        # Format of test results
   
 
    
