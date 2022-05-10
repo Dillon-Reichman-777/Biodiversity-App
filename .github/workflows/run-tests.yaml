@@ -16,9 +16,13 @@ jobs:
       - name: Setup renv # Set up R env to install packages
         run: |
           install.packages('remotes')
-          install.packages("curl") 
           install.packages('renv')
         shell: Rscript {0}
+        
+      - name: Install cURL Headers
+        run: curl https://curl.haxx.se/download/curl-$V.tar.gz | sudo tar xz -C /usr --strip-components=1 curl-$V/include
+        env:
+         V: 7.58.0  
         
       - uses: actions/cache@v2 # Cache packages so won't be compiled everytime job is run
         with:
