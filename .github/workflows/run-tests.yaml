@@ -2,12 +2,7 @@ on:
   push:
   pull_request:
   
-permissions:
-  contents: read
-  issues: read
-  checks: write
-  pull-requests: write
-  
+permissions: write-all
   
 name: run-tests
 
