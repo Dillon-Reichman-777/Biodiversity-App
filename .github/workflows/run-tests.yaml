@@ -56,7 +56,7 @@ jobs:
         if: failure()||success()
         uses: actions/upload-artifact@master
         with:
-          name: ${{ runner.os }}-r${{ release }}-tests
+          name: tests
           path: unit_tests
 
    
