@@ -48,4 +48,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: code-coverage-report
-          path: artifacts/code-coverage.html
+          path: artifacts/jest-junit.xml
