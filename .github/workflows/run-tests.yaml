@@ -42,6 +42,7 @@ jobs:
       - name: Run tests
         shell: Rscript {0}
         run: |
+          source('packages.R')
           source('unit_tests/test_cleaned_data.R')
         
       - name: Archive code coverage results
