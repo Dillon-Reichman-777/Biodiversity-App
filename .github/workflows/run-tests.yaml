@@ -19,26 +19,20 @@ jobs:
           key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
           restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
 
-      - name: install packages required for app # Set up R env to install packages
+      - name: Setup renv # Set up R env to install packages
         run: |
           install.packages('remotes')
-          install.packages('shiny')
-          install.packages('shinydashboard')
-          install.packages('dplyr')
-          install.packages('leaflet')
-          install.packages('readxl')
-          install.packages('leaflet.extras')
-          install.packages('leaflegend')
-          install.packages('timevis')
-          install.packages('reshape2')
-          install.packages('DT')
-          install.packages('ggplot2')
-          install.packages('shinyjs')
-          install.packages('testthat')
-          install.packages('rlang')
-
         shell: Rscript {0}
-
+        
+      - uses: actions/cache@v2 # Cache packages so won't be compiled everytime job is run
+        with:
+          path: ~/.local/share/renv
+          key: ${{ runner.os }}-renv-${{ hashFiles('**/renv.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-renv-
+      - name: Install dependencies # Install the dependencies eg. Dplyr, tidyverse etc
+        run: renv::restore()
+        shell: Rscript {0}
       - name: Source app.R # Run the script
         run: source("app.R")
         shell: Rscript {0}
