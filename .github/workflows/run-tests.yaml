@@ -44,13 +44,12 @@ jobs:
         run: renv::restore()
         shell: Rscript {0}
         
-      - name: source test scripts
-        shell: Rscript {0}
-        run: |
-          source('unit_tests/test_cleaned_data.R')
-          
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
+        with:
+          path: artifacts
+
       - name: Publish Unit Test Results
         uses: EnricoMi/publish-unit-test-result-action@v1
-        if: always()
         with:
-          files: "unit_tests/**/*.xml"
+          files: "artifacts/**/*.xml"
