@@ -1,30 +1,7 @@
 
 source("packages.R")
 source("data_processing_functions.R")
-# creating merge conflict
-# Read data into R
-#testing branch creation
 
-
-
-# making change to file
-
-# creating merge 11
-
-
-
-
-# creating merge conflict 2
-
-# creating merge conflict 6
-# creating merge conflict 5
-# creating merge conflict 7
-
-
-
-
-# hello world 
-# hey
 
 
 poland_species_data <- read_excel("poland_data_image_url.xlsx",guess_max = 50000,sheet = "Sheet 1")
